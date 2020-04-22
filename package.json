@@ -1,10 +1,10 @@
 {
-  "name": "@acoint/angular-google-maps",
+  "name": "@acomodeo/angular-google-maps",
   "version": "2.4.2",
   "description": "AngularJS directives for Google Maps",
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular-ui/angular-google-maps.git"
+    "url": "https://github.com/Acomodeo/angular-google-maps.git"
   },
   "scripts": {
     "build": "grunt",
@@ -26,6 +26,9 @@
     "spec/coffee/helpers/google-api-mock.coffee",
     "spec/coffee/helpers/initiator.coffee"
   ],
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/"
+  },
   "license": "MIT",
   "devDependencies": {
     "bower": "~1.4.1",
