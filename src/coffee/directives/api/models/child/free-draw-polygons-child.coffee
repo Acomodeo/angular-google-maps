@@ -55,7 +55,7 @@ angular.module('uiGmapgoogle-maps.directives.api.models.child')
       @deferred = $q.defer()
       disableMap()
       $log.info 'DrawFreeHandChildModel is engaged (drawing).'
-      google.maps.event.addDomListener @map.getDiv(), 'mousedown', (e) =>
+      google.maps.event.addListener @map.getDiv(), 'mousedown', (e) =>
         drawFreeHand @map, @polys, enableMap
       @deferred.promise
 
