@@ -3324,7 +3324,7 @@ Original idea from: http://stackoverflow.com/questions/22758950/google-map-drawi
             _this.deferred = $q.defer();
             disableMap();
             $log.info('DrawFreeHandChildModel is engaged (drawing).');
-            google.maps.event.addDomListener(_this.map.getDiv(), 'mousedown', function(e) {
+            google.maps.event.addListener(_this.map.getDiv(), 'mousedown', function(e) {
               return drawFreeHand(_this.map, _this.polys, enableMap);
             });
             return _this.deferred.promise;
@@ -8476,7 +8476,7 @@ ClusterIcon.prototype.onAdd = function () {
     cDraggingMapByCluster = cMouseDownInCluster;
   });
 
-  google.maps.event.addDomListener(this.div_, "mousedown", function () {
+  google.maps.event.addListener(this.div_, "mousedown", function () {
     cMouseDownInCluster = true;
     cDraggingMapByCluster = false;
   });
@@ -8484,12 +8484,12 @@ ClusterIcon.prototype.onAdd = function () {
 // March 1, 2018: Fix for this 3.32 exp bug, https://issuetracker.google.com/issues/73571522
 // But it doesn't work with earlier releases so do a version check.
   if (gmVersion >= 332) { // Ugly version-dependent code
-    google.maps.event.addDomListener(this.div_, "touchstart", function (e) {
+    google.maps.event.addListener(this.div_, "touchstart", function (e) {
       e.stopPropagation();
     });
   }
 
-  google.maps.event.addDomListener(this.div_, "click", function (e) {
+  google.maps.event.addListener(this.div_, "click", function (e) {
     cMouseDownInCluster = false;
     if (!cDraggingMapByCluster) {
       var theBounds;
@@ -8533,7 +8533,7 @@ ClusterIcon.prototype.onAdd = function () {
     }
   });
 
-  google.maps.event.addDomListener(this.div_, "mouseover", function () {
+  google.maps.event.addListener(this.div_, "mouseover", function () {
     var mc = cClusterIcon.cluster_.getMarkerClusterer();
     /**
      * This event is fired when the mouse moves over a cluster marker.
@@ -8544,7 +8544,7 @@ ClusterIcon.prototype.onAdd = function () {
     google.maps.event.trigger(mc, "mouseover", cClusterIcon.cluster_);
   });
 
-  google.maps.event.addDomListener(this.div_, "mouseout", function () {
+  google.maps.event.addListener(this.div_, "mouseout", function () {
     var mc = cClusterIcon.cluster_.getMarkerClusterer();
     /**
      * This event is fired when the mouse moves out of a cluster marker.
@@ -10216,17 +10216,17 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
 
       for (i = 0; i < events.length; i++) {
 
-        this.eventListeners_.push(google.maps.event.addDomListener(this.div_, events[i], cancelHandler));
+        this.eventListeners_.push(google.maps.event.addListener(this.div_, events[i], cancelHandler));
       }
 
       // Workaround for Google bug that causes the cursor to change to a pointer
       // when the mouse moves over a marker underneath InfoBox.
-      this.eventListeners_.push(google.maps.event.addDomListener(this.div_, "mouseover", function (e) {
+      this.eventListeners_.push(google.maps.event.addListener(this.div_, "mouseover", function (e) {
         this.style.cursor = "default";
       }));
     }
 
-    this.contextListener_ = google.maps.event.addDomListener(this.div_, "contextmenu", ignoreHandler);
+    this.contextListener_ = google.maps.event.addListener(this.div_, "contextmenu", ignoreHandler);
 
     /**
      * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
@@ -10271,7 +10271,7 @@ InfoBox.prototype.addClickHandler_ = function () {
   if (this.closeBoxURL_ !== "") {
 
     closeBox = this.div_.firstChild;
-    this.closeListener_ = google.maps.event.addDomListener(closeBox, "click", this.getCloseClickHandler_());
+    this.closeListener_ = google.maps.event.addListener(closeBox, "click", this.getCloseClickHandler_());
 
   } else {
 
@@ -11164,34 +11164,34 @@ InfoBox.prototype.close = function () {
     this.boxBorderWidths_ = getBorderWidths(this.boxDiv_);
 
     this.listeners_ = [
-      google.maps.event.addDomListener(document, "keydown", function (e) {
+      google.maps.event.addListener(document, "keydown", function (e) {
         me.onKeyDown_(e);
       }),
-      google.maps.event.addDomListener(document, "keyup", function (e) {
+      google.maps.event.addListener(document, "keyup", function (e) {
         me.onKeyUp_(e);
       }),
-      google.maps.event.addDomListener(this.veilDiv_[0], "mousedown", function (e) {
+      google.maps.event.addListener(this.veilDiv_[0], "mousedown", function (e) {
         me.onMouseDown_(e);
       }),
-      google.maps.event.addDomListener(this.veilDiv_[1], "mousedown", function (e) {
+      google.maps.event.addListener(this.veilDiv_[1], "mousedown", function (e) {
         me.onMouseDown_(e);
       }),
-      google.maps.event.addDomListener(this.veilDiv_[2], "mousedown", function (e) {
+      google.maps.event.addListener(this.veilDiv_[2], "mousedown", function (e) {
         me.onMouseDown_(e);
       }),
-      google.maps.event.addDomListener(this.veilDiv_[3], "mousedown", function (e) {
+      google.maps.event.addListener(this.veilDiv_[3], "mousedown", function (e) {
         me.onMouseDown_(e);
       }),
-      google.maps.event.addDomListener(document, "mousedown", function (e) {
+      google.maps.event.addListener(document, "mousedown", function (e) {
         me.onMouseDownDocument_(e);
       }),
-      google.maps.event.addDomListener(document, "mousemove", function (e) {
+      google.maps.event.addListener(document, "mousemove", function (e) {
         me.onMouseMove_(e);
       }),
-      google.maps.event.addDomListener(document, "mouseup", function (e) {
+      google.maps.event.addListener(document, "mouseup", function (e) {
         me.onMouseUp_(e);
       }),
-      google.maps.event.addDomListener(window, "scroll", getScrollValue)
+      google.maps.event.addListener(window, "scroll", getScrollValue)
     ];
 
     this.hotKeyDown_ = false;
@@ -11814,19 +11814,19 @@ MarkerLabel_.prototype.onAdd = function () {
   }
 
   this.listeners_ = [
-    google.maps.event.addDomListener(this.eventDiv_, "mouseover", function (e) {
+    google.maps.event.addListener(this.eventDiv_, "mouseover", function (e) {
       if (me.marker_.getDraggable() || me.marker_.getClickable()) {
         this.style.cursor = "pointer";
         google.maps.event.trigger(me.marker_, "mouseover", e);
       }
     }),
-    google.maps.event.addDomListener(this.eventDiv_, "mouseout", function (e) {
+    google.maps.event.addListener(this.eventDiv_, "mouseout", function (e) {
       if ((me.marker_.getDraggable() || me.marker_.getClickable()) && !cDraggingLabel) {
         this.style.cursor = me.marker_.getCursor();
         google.maps.event.trigger(me.marker_, "mouseout", e);
       }
     }),
-    google.maps.event.addDomListener(this.eventDiv_, "mousedown", function (e) {
+    google.maps.event.addListener(this.eventDiv_, "mousedown", function (e) {
       cDraggingLabel = false;
       if (me.marker_.getDraggable()) {
         cMouseIsDown = true;
@@ -11837,7 +11837,7 @@ MarkerLabel_.prototype.onAdd = function () {
         cAbortEvent(e); // Prevent map pan when starting a drag on a label
       }
     }),
-    google.maps.event.addDomListener(document, "mouseup", function (mEvent) {
+    google.maps.event.addListener(document, "mouseup", function (mEvent) {
       var position;
       if (cMouseIsDown) {
         cMouseIsDown = false;
@@ -11897,7 +11897,7 @@ MarkerLabel_.prototype.onAdd = function () {
         }
       }
     }),
-    google.maps.event.addDomListener(document, "keydown", function (e) {
+    google.maps.event.addListener(document, "keydown", function (e) {
       if (cDraggingLabel) {
         if (e.keyCode === 27) { // Esc key
           cRaiseEnabled = false;
@@ -11907,7 +11907,7 @@ MarkerLabel_.prototype.onAdd = function () {
         }
       }
     }),
-    google.maps.event.addDomListener(this.eventDiv_, "click", function (e) {
+    google.maps.event.addListener(this.eventDiv_, "click", function (e) {
       if (me.marker_.getDraggable() || me.marker_.getClickable()) {
         if (cIgnoreClick) { // Ignore the click reported when a label drag ends
           cIgnoreClick = false;
@@ -11917,7 +11917,7 @@ MarkerLabel_.prototype.onAdd = function () {
         }
       }
     }),
-    google.maps.event.addDomListener(this.eventDiv_, "dblclick", function (e) {
+    google.maps.event.addListener(this.eventDiv_, "dblclick", function (e) {
       if (me.marker_.getDraggable() || me.marker_.getClickable()) {
         google.maps.event.trigger(me.marker_, "dblclick", e);
         cAbortEvent(e); // Prevent map zoom when double-clicking on a label
@@ -12648,7 +12648,7 @@ RichMarker.prototype.content_changed = function() {
       // so by calling preventDefault we stop this behaviour and allow the image
       // to be dragged around the map and now out of the browser and onto the
       // desktop.
-      google.maps.event.addDomListener(image, 'mousedown', function(e) {
+      google.maps.event.addListener(image, 'mousedown', function(e) {
         if (that.getDraggable()) {
           if (e.preventDefault) {
             e.preventDefault();
@@ -12660,7 +12660,7 @@ RichMarker.prototype.content_changed = function() {
       // Because we don't know the size of an image till it loads, add a
       // listener to the image load so the marker can resize and reposition
       // itself to be the correct height.
-      google.maps.event.addDomListener(image, 'load', function() {
+      google.maps.event.addListener(image, 'load', function() {
         that.draw();
       });
     }
@@ -12846,7 +12846,7 @@ RichMarker.prototype.addDragging_ = function(node) {
 
   var that = this;
   this.draggableListener_ =
-    google.maps.event.addDomListener(node, 'mousedown', function(e) {
+    google.maps.event.addListener(node, 'mousedown', function(e) {
       that.startDrag(e);
     });
 
@@ -12864,20 +12864,20 @@ RichMarker.prototype.addDraggingListeners_ = function() {
   if (this.markerWrapper_.setCapture) {
     this.markerWrapper_.setCapture(true);
     this.draggingListeners_ = [
-      google.maps.event.addDomListener(this.markerWrapper_, 'mousemove', function(e) {
+      google.maps.event.addListener(this.markerWrapper_, 'mousemove', function(e) {
         that.drag(e);
       }, true),
-      google.maps.event.addDomListener(this.markerWrapper_, 'mouseup', function() {
+      google.maps.event.addListener(this.markerWrapper_, 'mouseup', function() {
         that.stopDrag();
         that.markerWrapper_.releaseCapture();
       }, true)
     ];
   } else {
     this.draggingListeners_ = [
-      google.maps.event.addDomListener(window, 'mousemove', function(e) {
+      google.maps.event.addListener(window, 'mousemove', function(e) {
         that.drag(e);
       }, true),
-      google.maps.event.addDomListener(window, 'mouseup', function() {
+      google.maps.event.addListener(window, 'mouseup', function() {
         that.stopDrag();
       }, true)
     ];
@@ -12978,13 +12978,13 @@ RichMarker.prototype.onAdd = function() {
     this.markerWrapper_.appendChild(this.markerContent_);
 
     var that = this;
-    google.maps.event.addDomListener(this.markerContent_, 'click', function(e) {
+    google.maps.event.addListener(this.markerContent_, 'click', function(e) {
       google.maps.event.trigger(that, 'click');
     });
-    google.maps.event.addDomListener(this.markerContent_, 'mouseover', function(e) {
+    google.maps.event.addListener(this.markerContent_, 'mouseover', function(e) {
       google.maps.event.trigger(that, 'mouseover');
     });
-    google.maps.event.addDomListener(this.markerContent_, 'mouseout', function(e) {
+    google.maps.event.addListener(this.markerContent_, 'mouseout', function(e) {
       google.maps.event.trigger(that, 'mouseout');
     });
   }
